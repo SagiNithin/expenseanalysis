@@ -25,30 +25,14 @@ $bills= $conn->query($res6);
 
 ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <title>Monthly Expenses</title>
 
     <style>
@@ -122,8 +106,31 @@ $bills= $conn->query($res6);
 
   <button type="button" class="x"><a href="expense.html">Add Expenses</a></button>
 
+
 </div> 
 
+<div id="container" style="width: 100%; height: 100%"></div>
+<script>
+anychart.onDocumentReady(function() {
+var data = [
+    {x: "EMI", value: <?php $emi ?>},
+    {x: "Savings", value: <?php $savings ?>},
+    {x: "Groceries", value: <?php $gro ?>},
+    {x: "Entertainment", value: <?php $ent ?>},
+    {x: "Bills", value: <?php $bills ?>},
+    {x: "miscellaneous", value:<?php $misc ?>},
+   
+];
 
+var chart = anychart.pie();
+chart.title("Category wise expenses analysis");
+chart.data(data);
+chart.container('container');
+chart.draw();
+
+});
+
+
+</script>
 </body>
 </html>
